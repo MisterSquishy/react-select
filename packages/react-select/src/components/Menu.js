@@ -315,13 +315,14 @@ export class MenuPlacer extends Component<MenuPlacerProps, MenuState> {
 }
 
 const Menu = (props: MenuProps) => {
-  const { children, className, cx, getStyles, innerRef, innerProps } = props;
+  const { children, className, cx, getStyles, innerRef, innerProps, transitionProps } = props;
 
   return (
     <div
       css={getStyles('menu', props)}
       className={cx({ menu: true }, className)}
       {...innerProps}
+      {...transitionProps}
       ref={innerRef}
     >
       {children}

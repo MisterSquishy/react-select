@@ -48,6 +48,48 @@ export const Fade = ({
 };
 
 // ==============================
+// Fade And Slide Transition
+// ==============================
+
+type FadeAndSlideProps = BaseTransition & {
+  component: ComponentType<any>,
+  duration: number,
+  xOffsetPixels: number,
+  yOffsetPixels: number,
+};
+export const FadeAndSlide = ({
+  component: Tag,
+  duration = 100,
+  xOffsetPixels = 0,
+  yOffsetPixels = -5,
+  in: inProp,
+  onExited, // eslint-disable-line no-unused-vars
+  ...props
+}: FadeAndSlideProps) => {
+  const transition = {
+    entering: { opacity: 0, transform: `translate(${xOffsetPixels}px, ${yOffsetPixels}px)` },
+    entered: { opacity: 1, transform: 'translate(0,0)', transition: `all ${duration}ms ease` },
+    exiting: { opacity: 1, transform: 'translate(0,0)', transition: `all ${duration}ms ease` },
+    exited: { opacity: 0, transform: `translate(${xOffsetPixels}px, ${yOffsetPixels}px)` },
+  };
+
+  return (
+    <Transition mountOnEnter unmountOnExit appear in timeout={duration}>
+      {state => {
+        const transitionProps = {
+          style: {
+            ...transition[state],
+          }
+        };
+        console.log(state)
+
+        return <Tag transitionProps={transitionProps} {...props} />;
+      }}
+    </Transition>
+  );
+};
+
+// ==============================
 // Collapse Transition
 // ==============================
 

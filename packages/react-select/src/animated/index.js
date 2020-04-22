@@ -3,6 +3,7 @@ import memoize from 'memoize-one';
 import isEqual from '../internal/react-fast-compare';
 import { type SelectComponents, defaultComponents } from '../components/index';
 import { default as AnimatedInput } from './Input';
+import { default as AnimatedMenu } from './Menu';
 import { default as AnimatedMultiValue } from './MultiValue';
 import { default as AnimatedPlaceholder } from './Placeholder';
 import { default as AnimatedSingleValue } from './SingleValue';
@@ -10,9 +11,10 @@ import { default as AnimatedValueContainer } from './ValueContainer';
 
 const makeAnimated = (externalComponents?: SelectComponents= {}): SelectComponents => {
   const components = defaultComponents({ components: externalComponents });
-  const { Input, MultiValue, Placeholder, SingleValue, ValueContainer, ...rest } = components;
+  const { Input, Menu, MultiValue, Placeholder, SingleValue, ValueContainer, ...rest } = components;
   return {
     Input: AnimatedInput(Input),
+    Menu: AnimatedMenu(Menu),
     MultiValue: AnimatedMultiValue(MultiValue),
     Placeholder: AnimatedPlaceholder(Placeholder),
     SingleValue: AnimatedSingleValue(SingleValue),
@@ -24,6 +26,7 @@ const makeAnimated = (externalComponents?: SelectComponents= {}): SelectComponen
 const AnimatedComponents = makeAnimated();
 
 export const Input = AnimatedComponents.Input;
+export const Menu = AnimatedComponents.Menu;
 export const MultiValue = AnimatedComponents.MultiValue;
 export const Placeholder = AnimatedComponents.Placeholder;
 export const SingleValue = AnimatedComponents.SingleValue;
