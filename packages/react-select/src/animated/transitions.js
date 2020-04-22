@@ -69,19 +69,20 @@ export const FadeAndSlide = ({
   const transition = {
     entering: { opacity: 0, transform: `translate(${xOffsetPixels}px, ${yOffsetPixels}px)` },
     entered: { opacity: 1, transform: 'translate(0,0)', transition: `all ${duration}ms ease` },
-    exiting: { opacity: 1, transform: 'translate(0,0)', transition: `all ${duration}ms ease` },
+    exiting: { opacity: 0, transform: `translate(${xOffsetPixels}px, ${yOffsetPixels}px)` },
     exited: { opacity: 0, transform: `translate(${xOffsetPixels}px, ${yOffsetPixels}px)` },
   };
+  console.log("first entered at  " + new Date().getUTCMilliseconds())
 
   return (
-    <Transition mountOnEnter unmountOnExit appear in timeout={duration}>
+    <Transition appear in timeout={duration}>
       {state => {
         const transitionProps = {
           style: {
             ...transition[state],
           }
         };
-        console.log(state)
+        console.log(state + " at  " + new Date().getUTCMilliseconds())
 
         return <Tag transitionProps={transitionProps} {...props} />;
       }}
